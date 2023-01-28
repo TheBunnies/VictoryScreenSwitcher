@@ -30,7 +30,7 @@ namespace VictoryScreenSwitcher.Patches
                 {
                     var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
                     DJMAXToggle = toggle;
-                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-6.8f, -2.65f, 100f), isDJMAXToggled, "DJMax Screen");
+                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-2.3f, -2.65f, 100f), isDJMAXToggled, "DJMax Screen");
                 }
             }
 
@@ -40,7 +40,7 @@ namespace VictoryScreenSwitcher.Patches
                 {
                     var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
                     ArknightsToggle = toggle;
-                    SetupToggle(toggle, "Arknights screen toggle", new Vector3(-6.8f, -3.55f, 100f), isArknightsToggled, "Arknights Screen");
+                    SetupToggle(toggle, "Arknights screen toggle", new Vector3(-2.3f, -3.55f, 100f), isArknightsToggled, "Arknights Screen");
                 }
             }
         }
