@@ -17,7 +17,7 @@ public static class GameObjectExtensions
 
     public static void SetValue(this Toggle obj, bool val)
     {
-        obj.group = null;
+        obj.group = obj.transform.parent.gameObject.GetComponent<ToggleGroup>();
         obj.SetIsOnWithoutNotify(val);
     }
 }

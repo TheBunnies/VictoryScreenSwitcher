@@ -6,7 +6,7 @@ namespace VictoryScreenSwitcher
 {
     public class Save
     {
-        private static Settings _default = new(false);
+        private static Settings _default = new(false, false, true);
         public static readonly string ConfigPath = Path.Combine("UserData", "VictoryScreenSwitcher.cfg");
         public static Settings Settings;
 
