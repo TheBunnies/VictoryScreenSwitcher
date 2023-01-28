@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Linq;
-using MelonLoader;
+﻿using MelonLoader;
+using System.IO;
 using Tomlet;
 using UnityEngine;
-using VictoryScreenSwitcher.Models;
+using static VictoryScreenSwitcher.ToggleManager;
 
 namespace VictoryScreenSwitcher
 {
@@ -14,20 +13,23 @@ namespace VictoryScreenSwitcher
             Save.Load();
             LoggerInstance.Msg($"{nameof(VictoryScreenSwitcher)} is loaded!");
         }
+
         public override void OnApplicationQuit()
         {
             File.WriteAllText(Save.ConfigPath, TomletMain.TomlStringFrom(Save.Settings));
         }
+
         public override void OnUpdate()
         {
-
-            if (!GameObject.Find("PnlOption") && ToggleManager.Toggle != null)
+            if (!GameObject.Find("PnlOption") && DJMAXToggle != null)
             {
-                ToggleManager.Toggle.SetActive(false);
+                DJMAXToggle.SetActive(false);
+                ArknightsToggle.SetActive(false);
             }
-            else if (GameObject.Find("PnlOption") && ToggleManager.Toggle != null)
+            else if (GameObject.Find("PnlOption") && DJMAXToggle != null)
             {
-                ToggleManager.Toggle.SetActive(true);
+                DJMAXToggle.SetActive(true);
+                ArknightsToggle.SetActive(true);
             }
         }
     }

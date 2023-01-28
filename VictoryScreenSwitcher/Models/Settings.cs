@@ -4,12 +4,16 @@ namespace VictoryScreenSwitcher.Models
 {
     public struct Settings
     {
-        [TomlPrecedingComment("Whether the DjMax or Arknights option is enabled")]
-        public bool IsToggled;
+        [TomlPrecedingComment("Whether the DjMax option is enabled")]
+        public bool IsDJMAXToggled;
 
-        public Settings(bool isToggled)
+        [TomlPrecedingComment("Whether the Arknights option is enabled")]
+        public bool IsArknightsToggled;
+
+        public Settings(bool isDJMAXToggled, bool isArknightsToggled)
         {
-            IsToggled = isToggled;
+            IsDJMAXToggled = isDJMAXToggled;
+            IsArknightsToggled = isArknightsToggled;
         }
     }
 }

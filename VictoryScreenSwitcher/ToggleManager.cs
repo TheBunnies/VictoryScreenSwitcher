@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MelonLoader;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using VictoryScreenSwitcher.Extenstions;
 
@@ -7,7 +9,8 @@ namespace VictoryScreenSwitcher
 {
     public static class ToggleManager
     {
-        public static GameObject Toggle { get; set; }
+        public static GameObject DJMAXToggle { get; set; }
+        public static GameObject ArknightsToggle { get; set; }
 
         public static unsafe void SetupToggle(GameObject toggle, string name, Vector3 position, bool* isEnabled,
             string text)
@@ -17,17 +20,16 @@ namespace VictoryScreenSwitcher
             var txt = toggle.transform.Find("Txt").GetComponent<Text>();
             var checkBox = toggle.transform.Find("Background").GetComponent<Image>();
             var checkMark = toggle.transform.Find("Background").GetChild(0).GetComponent<Image>();
-            
+
             toggle.transform.position = position;
-            
+
             toggle.ToggleOff();
+
+            bool enabled = *isEnabled;
             var toggleComp = toggle.GetComponent<Toggle>();
-            toggleComp.SetValue(*isEnabled);
-            
-            toggleComp.onValueChanged.AddListener((Action<bool>) (val =>
-            {
-                *isEnabled = val;
-            }));
+            toggleComp.onValueChanged.AddListener((UnityAction<bool>)(val => *isEnabled = val));
+            toggleComp.SetValue(enabled);
+
             txt.text = text;
             txt.fontSize = 40;
             txt.color = new Color(1, 1, 1, 0.298f);

@@ -2,6 +2,8 @@
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.UI;
+using static VictoryScreenSwitcher.ToggleManager;
 
 namespace VictoryScreenSwitcher.Patches
 {
@@ -10,7 +12,8 @@ namespace VictoryScreenSwitcher.Patches
     {
         private static unsafe void Postfix(PnlMenu __instance)
         {
-            
+            __instance.gameObject.AddComponent<ToggleGroup>();
+            __instance.gameObject.GetComponent<ToggleGroup>().allowSwitchOff = true;
             GameObject vSelect = null;
             foreach (Il2CppSystem.Object @object in __instance.transform.parent.parent.Find("Forward"))
             {
@@ -21,13 +24,23 @@ namespace VictoryScreenSwitcher.Patches
                 }
             }
 
-            fixed (bool* isToggled = &Save.Settings.IsToggled)
+            fixed (bool* isDJMAXToggled = &Save.Settings.IsDJMAXToggled)
             {
-                if (ToggleManager.Toggle == null && vSelect != null)
+                if (DJMAXToggle == null && vSelect != null)
                 {
                     var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
-                    ToggleManager.Toggle = toggle;
-                    ToggleManager.SetupToggle(toggle, "Victory screen toggle", new Vector3(-6.8f, -2.65f, 100f), isToggled, "DjMax/Arknights Screen");
+                    DJMAXToggle = toggle;
+                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-6.8f, -2.65f, 100f), isDJMAXToggled, "DJMax Screen");
+                }
+            }
+
+            fixed (bool* isArknightsToggled = &Save.Settings.IsArknightsToggled)
+            {
+                if (ArknightsToggle == null && vSelect != null)
+                {
+                    var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
+                    ArknightsToggle = toggle;
+                    SetupToggle(toggle, "Arknights screen toggle", new Vector3(-6.8f, -3.55f, 100f), isArknightsToggled, "Arknights Screen");
                 }
             }
         }
