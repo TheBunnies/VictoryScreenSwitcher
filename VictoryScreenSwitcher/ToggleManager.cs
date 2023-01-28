@@ -27,7 +27,7 @@ namespace VictoryScreenSwitcher
 
             bool enabled = *isEnabled;
             var toggleComp = toggle.GetComponent<Toggle>();
-            toggleComp.onValueChanged.AddListener((UnityAction<bool>)(val => *isEnabled = val));
+            toggleComp.onValueChanged.AddListener((Action<bool>)(val => *isEnabled = val));
             toggleComp.SetValue(enabled);
 
             txt.text = text;
