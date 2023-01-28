@@ -25,13 +25,11 @@ namespace VictoryScreenSwitcher
             {
                 DJMAXToggle.SetActive(false);
                 ArknightsToggle.SetActive(false);
-                NormalToggle.SetActive(false);
             }
             else if (GameObject.Find("PnlOption") && DJMAXToggle != null)
             {
                 DJMAXToggle.SetActive(true);
                 ArknightsToggle.SetActive(true);
-                NormalToggle.SetActive(true);
             }
         }
     }

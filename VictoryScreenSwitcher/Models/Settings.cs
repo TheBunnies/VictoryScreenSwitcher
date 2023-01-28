@@ -10,14 +10,10 @@ namespace VictoryScreenSwitcher.Models
         [TomlPrecedingComment("Whether the Arknights option is enabled")]
         public bool IsArknightsToggled;
 
-        [TomlPrecedingComment("Whether the Normal option is enabled")]
-        public bool IsNormalToggled;
-
-        public Settings(bool isDJMAXToggled, bool isArknightsToggled, bool isNormalToggled)
+        public Settings(bool isDJMAXToggled, bool isArknightsToggled)
         {
             IsDJMAXToggled = isDJMAXToggled;
             IsArknightsToggled = isArknightsToggled;
-            IsNormalToggled = isNormalToggled;
         }
     }
 }

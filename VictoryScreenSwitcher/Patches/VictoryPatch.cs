@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using MelonLoader;
 
 namespace VictoryScreenSwitcher.Patches;
 
@@ -13,12 +12,12 @@ public class VictoryPatch
             __instance.pnlControls[0].index = 1;
             __instance.pnlControls[1].index = 0;
         }
-        if (Save.Settings.IsArknightsToggled)
+        else if (Save.Settings.IsArknightsToggled)
         {
             __instance.pnlControls[0].index = 2;
             __instance.pnlControls[2].index = 0;
         }
-        if (Save.Settings.IsNormalToggled)
+        else
         {
             __instance.pnlControls[0].index = 0;
             __instance.pnlControls[2].index = 2;

@@ -13,6 +13,7 @@ namespace VictoryScreenSwitcher.Patches
         private static unsafe void Postfix(PnlMenu __instance)
         {
             __instance.gameObject.AddComponent<ToggleGroup>();
+            __instance.gameObject.GetComponent<ToggleGroup>().allowSwitchOff = true;
             GameObject vSelect = null;
             foreach (Il2CppSystem.Object @object in __instance.transform.parent.parent.Find("Forward"))
             {
@@ -29,7 +30,7 @@ namespace VictoryScreenSwitcher.Patches
                 {
                     var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
                     DJMAXToggle = toggle;
-                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-6.8f, -2.65f, 100f), isDJMAXToggled, "DjMax Screen");
+                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-6.8f, -2.65f, 100f), isDJMAXToggled, "DJMax Screen");
                 }
             }
 
@@ -40,16 +41,6 @@ namespace VictoryScreenSwitcher.Patches
                     var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
                     ArknightsToggle = toggle;
                     SetupToggle(toggle, "Arknights screen toggle", new Vector3(-6.8f, -3.55f, 100f), isArknightsToggled, "Arknights Screen");
-                }
-            }
-
-            fixed (bool* isNormalToggled = &Save.Settings.IsNormalToggled)
-            {
-                if (NormalToggle == null && vSelect != null)
-                {
-                    var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
-                    NormalToggle = toggle;
-                    SetupToggle(toggle, "Normal toggle", new Vector3(-6.8f, -4.45f, 100f), isNormalToggled, "Normal Screen");
                 }
             }
         }
