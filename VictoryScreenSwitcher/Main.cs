@@ -1,38 +1,38 @@
-﻿using MelonLoader;
+﻿using System.IO;
+using MelonLoader;
 using MuseDashMirror.CommonPatches;
-using System;
-using System.IO;
 using Tomlet;
 using static VictoryScreenSwitcher.Patches.MenuPatch;
 
-namespace VictoryScreenSwitcher
+namespace VictoryScreenSwitcher;
+
+public class Main : MelonMod
 {
-    public class Main : MelonMod
+    public override void OnInitializeMelon()
     {
-        public override void OnInitializeMelon()
-        {
-            Save.Load();
-            PatchEvents.MenuSelectEvent += new Action<int, int, bool>(DisableToggle);
-            LoggerInstance.Msg($"{nameof(VictoryScreenSwitcher)} is loaded!");
-        }
+        Save.Load();
+        PatchEvents.MenuSelectEvent += DisableToggle;
+        PatchEvents.PnlMenuEvent += MenuPatchPostfix;
+        PatchEvents.SwitchLanguagesEvent += SwitchLanguagesPostfix;
+        LoggerInstance.Msg($"{nameof(VictoryScreenSwitcher)} is loaded!");
+    }
 
-        public override void OnDeinitializeMelon()
-        {
-            File.WriteAllText(Save.ConfigPath, TomletMain.TomlStringFrom(Save.Settings));
-        }
+    public override void OnDeinitializeMelon()
+    {
+        File.WriteAllText(Save.ConfigPath, TomletMain.TomlStringFrom(Save.Settings));
+    }
 
-        private void DisableToggle(int listIndex, int index, bool isOn)
+    private void DisableToggle(int listIndex, int index, bool isOn)
+    {
+        if (listIndex == 0 && index == 0 && isOn)
         {
-            if (listIndex == 0 && index == 0 && isOn)
-            {
-                DJMAXToggle.SetActive(true);
-                ArknightsToggle.SetActive(true);
-            }
-            else
-            {
-                DJMAXToggle.SetActive(false);
-                ArknightsToggle.SetActive(false);
-            }
+            DJMAXToggle.SetActive(true);
+            ArknightsToggle.SetActive(true);
+        }
+        else
+        {
+            DJMAXToggle.SetActive(false);
+            ArknightsToggle.SetActive(false);
         }
     }
 }
