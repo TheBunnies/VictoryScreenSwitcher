@@ -50,6 +50,10 @@
       <HintPath>..\Binaries\MelonLoader.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="MuseDashMirror">
+      <HintPath>..\Binaries\MuseDashMirror.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Sirenix.Serialization">
       <HintPath>..\Binaries\Sirenix.Serialization.dll</HintPath>
       <Private>False</Private>
@@ -76,7 +80,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extenstions\GameObjectExtensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Models\MelonBuildInfo.cs" />
     <Compile Include="Models\Settings.cs" />
@@ -84,7 +87,6 @@
     <Compile Include="Patches\VictoryPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Save.cs" />
-    <Compile Include="ToggleManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

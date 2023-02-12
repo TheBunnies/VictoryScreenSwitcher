@@ -1,19 +1,24 @@
 ﻿using Assets.Scripts.UI.Panels;
 using HarmonyLib;
-using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
-using static VictoryScreenSwitcher.ToggleManager;
+using static MuseDashMirror.UICreate.ToggleCreate;
 
 namespace VictoryScreenSwitcher.Patches
 {
     [HarmonyPatch(typeof(PnlMenu), "Awake")]
-    public class MenuPatch
+    internal static class MenuPatch
     {
+        internal static GameObject DJMAXToggle { get; set; }
+        internal static GameObject ArknightsToggle { get; set; }
+
         private static unsafe void Postfix(PnlMenu __instance)
         {
-            __instance.gameObject.AddComponent<ToggleGroup>();
-            __instance.gameObject.GetComponent<ToggleGroup>().allowSwitchOff = true;
+            var gameobject = new GameObject("VictorySceneSwitcher");
+            gameobject.transform.SetParent(__instance.transform);
+            gameobject.AddComponent<ToggleGroup>();
+            gameobject.GetComponent<ToggleGroup>().allowSwitchOff = true;
+
             GameObject vSelect = null;
             foreach (Il2CppSystem.Object @object in __instance.transform.parent.parent.Find("Forward"))
             {
@@ -28,9 +33,7 @@ namespace VictoryScreenSwitcher.Patches
             {
                 if (DJMAXToggle == null && vSelect != null)
                 {
-                    var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
-                    DJMAXToggle = toggle;
-                    SetupToggle(toggle, "DJMAX screen toggle", new Vector3(-2.3f, -2.65f, 100f), isDJMAXToggled, "DJMax Screen");
+                    DJMAXToggle = CreatePnlMenuToggle("DJMAX screen toggle", isDJMAXToggled, "DJMax Screen", gameobject, gameobject.GetComponent<ToggleGroup>());
                 }
             }
 
@@ -38,9 +41,7 @@ namespace VictoryScreenSwitcher.Patches
             {
                 if (ArknightsToggle == null && vSelect != null)
                 {
-                    var toggle = Object.Instantiate(vSelect.transform.Find("LogoSetting").Find("Toggles").Find("TglOn").gameObject, __instance.transform);
-                    ArknightsToggle = toggle;
-                    SetupToggle(toggle, "Arknights screen toggle", new Vector3(-2.3f, -3.55f, 100f), isArknightsToggled, "Arknights Screen");
+                    ArknightsToggle = CreatePnlMenuToggle("Arknights screen toggle", isArknightsToggled, "Arknights Screen", gameobject, gameobject.GetComponent<ToggleGroup>());
                 }
             }
         }
