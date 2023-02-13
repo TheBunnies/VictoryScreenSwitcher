@@ -1,36 +1,38 @@
-﻿using MelonLoader;
-using System.IO;
+﻿using System.IO;
+using MelonLoader;
+using MuseDashMirror.CommonPatches;
 using Tomlet;
-using UnityEngine;
-using static VictoryScreenSwitcher.ToggleManager;
+using static VictoryScreenSwitcher.Patches.MenuPatch;
 
-namespace VictoryScreenSwitcher
+namespace VictoryScreenSwitcher;
+
+public class Main : MelonMod
 {
-    public class Main : MelonMod
+    public override void OnInitializeMelon()
     {
-        public override void OnInitializeMelon()
-        {
-            Save.Load();
-            LoggerInstance.Msg($"{nameof(VictoryScreenSwitcher)} is loaded!");
-        }
+        Save.Load();
+        PatchEvents.MenuSelectEvent += DisableToggle;
+        PatchEvents.PnlMenuEvent += MenuPatchPostfix;
+        PatchEvents.SwitchLanguagesEvent += SwitchLanguagesPostfix;
+        LoggerInstance.Msg($"{nameof(VictoryScreenSwitcher)} is loaded!");
+    }
 
-        public override void OnApplicationQuit()
-        {
-            File.WriteAllText(Save.ConfigPath, TomletMain.TomlStringFrom(Save.Settings));
-        }
+    public override void OnDeinitializeMelon()
+    {
+        File.WriteAllText(Save.ConfigPath, TomletMain.TomlStringFrom(Save.Settings));
+    }
 
-        public override void OnUpdate()
+    private void DisableToggle(int listIndex, int index, bool isOn)
+    {
+        if (listIndex == 0 && index == 0 && isOn)
         {
-            if (!GameObject.Find("PnlOption") && DJMAXToggle != null)
-            {
-                DJMAXToggle.SetActive(false);
-                ArknightsToggle.SetActive(false);
-            }
-            else if (GameObject.Find("PnlOption") && DJMAXToggle != null)
-            {
-                DJMAXToggle.SetActive(true);
-                ArknightsToggle.SetActive(true);
-            }
+            DJMAXToggle.SetActive(true);
+            ArknightsToggle.SetActive(true);
+        }
+        else
+        {
+            DJMAXToggle.SetActive(false);
+            ArknightsToggle.SetActive(false);
         }
     }
 }
