@@ -18,35 +18,30 @@ internal static class MenuPatch
 
     internal static unsafe void MenuPatchPostfix(PnlMenu __instance)
     {
-        var gameobject = new GameObject("VictorySceneSwitcher");
-        gameobject.transform.SetParent(__instance.transform);
-        gameobject.AddComponent<ToggleGroup>();
-        gameobject.GetComponent<ToggleGroup>().allowSwitchOff = true;
+        var gameObject = new GameObject("VictorySceneSwitcher");
+        gameObject.transform.SetParent(__instance.transform);
+        gameObject.AddComponent<ToggleGroup>();
+        gameObject.GetComponent<ToggleGroup>().allowSwitchOff = true;
 
         GameObject vSelect = null;
         foreach (var @object in __instance.transform.parent.parent.Find("Forward"))
         {
             var transform = @object.Cast<Transform>();
-            if (transform.name == "PnlVolume")
-            {
-                vSelect = transform.gameObject;
-            }
+            if (transform.name == "PnlVolume") vSelect = transform.gameObject;
         }
 
         fixed (bool* isDJMAXToggled = &Save.Settings.IsDJMAXToggled)
         {
             if (DJMAXToggle == null && vSelect != null)
-            {
-                DJMAXToggle = CreatePnlMenuToggle("DJMAX screen toggle", isDJMAXToggled, "DJMax Screen", gameobject, gameobject.GetComponent<ToggleGroup>());
-            }
+                DJMAXToggle = CreatePnlMenuToggle("DJMAX screen toggle", isDJMAXToggled, "DJMax Screen", gameObject,
+                    gameObject.GetComponent<ToggleGroup>());
         }
 
         fixed (bool* isArknightsToggled = &Save.Settings.IsArknightsToggled)
         {
             if (ArknightsToggle == null && vSelect != null)
-            {
-                ArknightsToggle = CreatePnlMenuToggle("Arknights screen toggle", isArknightsToggled, "Arknights Screen", gameobject, gameobject.GetComponent<ToggleGroup>());
-            }
+                ArknightsToggle = CreatePnlMenuToggle("Arknights screen toggle", isArknightsToggled, "Arknights Screen",
+                    gameObject, gameObject.GetComponent<ToggleGroup>());
         }
     }
 }

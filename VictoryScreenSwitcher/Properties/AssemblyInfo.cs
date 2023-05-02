@@ -1,6 +1,6 @@
-﻿using MelonLoader;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using MelonLoader;
 using VictoryScreenSwitcher.Models;
 using Main = VictoryScreenSwitcher.Main;
 
